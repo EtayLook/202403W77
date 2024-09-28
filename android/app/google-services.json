@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "530041174764",
+    "project_id": "soccer-567af",
+    "storage_bucket": "soccer-567af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530041174764:android:7aac2b6afb68759ede43c9",
+        "android_client_info": {
+          "package_name": "com.example.soccer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGm4tBklkJtvx-OyAB4NmmlXcrp6PC_jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
