@@ -21,18 +21,24 @@ class homepage extends StatefulWidget {
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
-  Future<Map<String, dynamic>>? _london;
-  Future<Map<String, dynamic>>? _paris;
   Future<Map<String, dynamic>>? _telaviv;
+  Future<Map<String, dynamic>>? _haifa;
+  Future<Map<String, dynamic>>? _ashkelon;
+  Future<Map<String, dynamic>>? _bersheva;
+  Future<Map<String, dynamic>>? _netanya;
+  Future<Map<String, dynamic>>? _jerusalem;
 
   final _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
-    _london = fetchWeather('London'); // ברירת מחדל
-    _paris = fetchWeather('Paris');
-    _telaviv = fetchWeather('Amsterdam');
-
+    _telaviv = fetchWeather('Tel Aviv');
+    _haifa = fetchWeather('Haifa');
+    _ashkelon = fetchWeather('Ashkelon');
+    _bersheva = fetchWeather('Beer Sheva');
+    _netanya = fetchWeather('Netanya');
+    _jerusalem = fetchWeather('Jerusalem');
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
@@ -48,21 +54,13 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //firestart();
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: const Color.fromARGB(255, 117, 163, 255),
           body: DecoratedBox(
-            // BoxDecoration takes the image
-            decoration: const BoxDecoration(
-                // Image set to background of the body
-                /*image: DecorationImage(
-                  opacity: 0.3,
-                  image: AssetImage("assets/back3.jpg"),
-                  fit: BoxFit.cover),*/
-                ),
+            decoration: const BoxDecoration(),
             child: SingleChildScrollView(
               child: SizedBox(
                   width: double.infinity,
@@ -177,8 +175,8 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                     "תוצאות משחקי הטורניר",
                                     style: GoogleFonts.alata(
                                         fontSize: 25,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0),
+                                        color: const Color.fromARGB(
+                                            255, 0, 0, 0),
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -201,15 +199,15 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                         height: 10,
                       ),
                       Container(
-                        //color: const Color.fromARGB(255, 255, 255, 255),
                         child: SizedBox(
                           width: MediaQuery.sizeOf(context).width * 0.4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               StreamBuilder<QuerySnapshot>(
-                                stream:
-                                    _firestore.collection('games').snapshots(),
+                                stream: _firestore
+                                    .collection('games')
+                                    .snapshots(),
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
                                     return const Center(
@@ -219,10 +217,12 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                     return ListView(
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
-                                      children: snapshot.data!.docs.map((doc) {
+                                      children: snapshot.data!.docs
+                                          .map((doc) {
                                         return Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(
+                                                8.0),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -230,11 +230,13 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                                   color: Colors.white,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(20),
+                                                    BorderRadius.circular(
+                                                        20),
                                               ),
                                               height: 60,
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
+                                              width: MediaQuery.sizeOf(
+                                                      context)
+                                                  .width *
                                                   0.4,
                                               child: Row(
                                                 mainAxisAlignment:
@@ -246,10 +248,12 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                                     style: GoogleFonts.alata(
                                                         fontSize: 16,
                                                         color: const Color
-                                                            .fromARGB(
-                                                            255, 33, 129, 67),
+                                                                .fromARGB(
+                                                            255, 33,
+                                                            129, 67),
                                                         fontWeight:
-                                                            FontWeight.normal),
+                                                            FontWeight
+                                                                .normal),
                                                   ),
                                                   Column(
                                                     mainAxisAlignment:
@@ -258,25 +262,33 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                                     children: [
                                                       Text(
                                                         doc["score"],
-                                                        style: GoogleFonts.alata(
-                                                            fontSize: 16,
-                                                            color: const Color
-                                                                .fromARGB(
-                                                                255, 0, 0, 0),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
+                                                        style: GoogleFonts
+                                                            .alata(
+                                                                fontSize:
+                                                                    16,
+                                                                color: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    0, 0,
+                                                                    0),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal),
                                                       ),
                                                       Text(
                                                         doc["date"],
-                                                        style: GoogleFonts.alata(
-                                                            fontSize: 16,
-                                                            color: const Color
-                                                                .fromARGB(
-                                                                255, 0, 0, 0),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
+                                                        style: GoogleFonts
+                                                            .alata(
+                                                                fontSize:
+                                                                    16,
+                                                                color: const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    0, 0,
+                                                                    0),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal),
                                                       ),
                                                     ],
                                                   ),
@@ -285,10 +297,12 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                                                     style: GoogleFonts.alata(
                                                         fontSize: 16,
                                                         color: const Color
-                                                            .fromARGB(
-                                                            255, 255, 66, 66),
+                                                                .fromARGB(
+                                                            255, 255, 66,
+                                                            66),
                                                         fontWeight:
-                                                            FontWeight.normal),
+                                                            FontWeight
+                                                                .normal),
                                                   ),
                                                 ],
                                               ),
@@ -311,176 +325,15 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
                         height: 150,
                         color: Colors.white,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                           children: [
-                            FutureBuilder<Map<String, dynamic>>(
-                              future: _london,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: const Text("non"),
-                                    ),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                      child: Text('Error: ${snapshot.error}'));
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  return const Center(child: Text('No data'));
-                                } else {
-                                  final data = snapshot.data!;
-                                  final weather =
-                                      data['weather'][0]['description'];
-                                  final temp = data['main']['temp'];
-                                  final city = data['name'];
-
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        city,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        '$temp°C',
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        weather,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 20,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              },
-                            ),
-                            FutureBuilder<Map<String, dynamic>>(
-                              future: _paris,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: const Text("non"),
-                                    ),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                      child: Text('Error: ${snapshot.error}'));
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  return const Center(child: Text('No data'));
-                                } else {
-                                  final data = snapshot.data!;
-                                  final weather =
-                                      data['weather'][0]['description'];
-                                  final temp = data['main']['temp'];
-                                  final city = data['name'];
-
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        city,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        '$temp°C',
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        weather,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 20,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              },
-                            ),
-                            FutureBuilder<Map<String, dynamic>>(
-                              future: _telaviv,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: const Text("non"),
-                                    ),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                      child: Text('Error: ${snapshot.error}'));
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  return const Center(child: Text('No data'));
-                                } else {
-                                  final data = snapshot.data!;
-                                  final weather =
-                                      data['weather'][0]['description'];
-                                  final temp = data['main']['temp'];
-                                  final city = data['name'];
-
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        city,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        '$temp°C',
-                                        style: GoogleFonts.alata(
-                                            fontSize: 30,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        weather,
-                                        style: GoogleFonts.alata(
-                                            fontSize: 20,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              },
-                            ),
+                            buildWeatherWidget(_telaviv),
+                            buildWeatherWidget(_haifa),
+                            buildWeatherWidget(_ashkelon),
+                            buildWeatherWidget(_bersheva),
+                            buildWeatherWidget(_netanya),
+                            buildWeatherWidget(_jerusalem),
                           ],
                         ),
                       ),
@@ -491,36 +344,8 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
     );
   }
 
-  Future<void> firestart() async {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey:
-            "AIzaSyBL8Btp6WGvX4gg7cc9Y7xlhdgpQte0hPo", // paste your api key here
-        appId:
-            "1:437948257567:android:e6006ec1aa52ad7050cc2a", //paste your app id here
-        messagingSenderId: "437948257567", //paste your messagingSenderId here
-        projectId: "shipapi-e8516", //paste your project id here
-      ),
-    );
-  }
-
-  Row headerBottomBarWidget() {
-    return const Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
-      ],
-    );
-  }
-
   Future<Map<String, dynamic>> fetchWeather(String city) async {
-    const apiKey =
-        'c098de3594d6a3fd61174cb281160cdf'; // קבל מפתח API מ-OpenWeatherMap
+    const apiKey = 'c098de3594d6a3fd61174cb281160cdf';
     final url =
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric';
 
@@ -531,5 +356,60 @@ class _homepage extends State<homepage> with SingleTickerProviderStateMixin {
     } else {
       throw Exception('Failed to load weather data');
     }
+  }
+
+  Widget buildWeatherWidget(Future<Map<String, dynamic>>? weatherData) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: weatherData,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: TextButton(
+              onPressed: () {},
+              child: const Text("Loading..."),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData || snapshot.data == null) {
+          return const Center(child: Text('No data'));
+        } else {
+          final data = snapshot.data!;
+          final weather = data['weather'][0]['description'];
+          final temp = data['main']['temp'];
+          final city = data['name'];
+          final iconCode = data['weather'][0]['icon'];
+          final iconUrl = 'https://openweathermap.org/img/wn/$iconCode@2x.png';
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                city,
+                style: GoogleFonts.alata(
+                    fontSize: 30,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.normal),
+              ),
+              Image.network(iconUrl),
+              Text(
+                '$temp°C',
+                style: GoogleFonts.alata(
+                    fontSize: 30,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.normal),
+              ),
+              Text(
+                weather,
+                style: GoogleFonts.alata(
+                    fontSize: 20,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.normal),
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }
